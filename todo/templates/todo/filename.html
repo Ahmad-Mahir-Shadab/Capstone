@@ -1,0 +1,103 @@
+{% extends "todo/layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <style>
+
+      .btn-primary {
+        margin-left: 2%;
+        margin-right: 65%;
+      }
+
+      form {
+        display: inline;
+      }
+
+      .btn-danger {
+        margin-right: 3%;
+      } 
+      
+      @media (min-width: 768px) {
+        .content {
+          font-size: 20px;
+        }
+
+        .btn-primary {
+        margin-left: 2%;
+        margin-right: 82%;
+        }
+
+        form {
+          display: inline;
+        }
+
+        .btn-danger {
+          margin-right: 3%;
+        } 
+
+        a {
+          font-size: 20px;
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .btn-primary {
+        margin-left: 2%;
+        margin-right: 88%;
+        }
+
+        form {
+          display: inline;
+        }
+
+        .btn-danger {
+          margin-right: 3%;
+        } 
+      }
+
+    </style>
+
+    <h1 style="display: flex; margin-top: 20px; justify-content: center;">{{ title }}</h1>
+
+    <div class="form-floating mb-3">
+      <textarea class="content form-control" id="content{{ id }}" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 100px; display: flex; margin-top: 20px; justify-content: center;" disabled>{{ content }}</textarea>
+    </div>
+
+    <h4 style="display: flex; margin-top: 20px; justify-content: center;">{{ date }}</h4>
+
+    <hr>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ id }}">Edit</button>
+
+    <form action="/del/{{todos.id}}" method="post">
+      {% csrf_token %}
+      <button class="btn btn-danger">Delete</button>
+    </form>
+
+    
+    <div class="modal fade" id="exampleModal{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Post</h1>
+            <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <textarea name="edit" id="textarea{{ id }}" cols="50" rows="5">{{ content }}</textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="submit({{ id }})">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <a style="display: flex; margin-top: 20px; justify-content: center;" href="/">Back to Home</a>
+
+{% endblock %}

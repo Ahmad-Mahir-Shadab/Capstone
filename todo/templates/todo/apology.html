@@ -1,0 +1,50 @@
+{% extends "todo/layout.html" %}
+
+{% block title %}
+    Page not found
+{% endblock %}
+
+{% block body %}
+    <style>
+        h1 {
+            font-size: 19px;
+            margin-top: 2%;
+            margin: 5%;
+        }
+
+        a {
+            margin-top: 7%;
+        }
+
+        @media  (min-width: 768px) {
+            h1 {
+                margin: 5%;
+                font-size: 40px;
+                margin-top: 2%;
+            }
+
+            a {
+                margin-top: 3%;
+                font-size: 27px;
+            }
+        }
+
+        @media  (min-width: 1000px) {
+            h1 {
+                margin: 3%;
+                font-size: 40px;
+                margin-top: 2%;
+            }
+
+            a {
+                margin-top: 3%;
+                font-size: 27px;
+            }
+        }
+    </style>
+
+    <h1 style="display: flex;justify-content: center;">Sorry, there're no page(s) acttording to the search</h1>
+
+    <a style="display: flex;justify-content: center;" href="/">Back to Home</a>
+
+{% endblock %}

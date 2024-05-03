@@ -1,0 +1,82 @@
+{% extends 'todo/layout.html' %}
+
+{% block title %}
+
+    Create new Note
+
+{% endblock %}
+
+{% block body %}
+
+    <style>
+        #home {
+            display: flex;
+            justify-content: center;
+            margin-top: 5%;
+        }
+
+        #w3review {
+            height: 600px;
+            width: 400px;
+            margin-bottom: 2%;
+        }
+
+        @media (min-width:768px) {
+            #title {
+                margin-bottom: 4%;
+            }
+
+            #l1 {
+                font-size: 40px;
+            }
+
+            #w3review {
+                height: 800px;
+                width: 700px;
+                margin-bottom: 2%;
+            }
+
+            #home {
+                display: flex;
+                justify-content: center;
+                margin-top: 5%;
+                font-size: 30px;
+            }
+        }
+
+        @media (min-width:1025px) {
+            #l1 {
+                font-size: 40px;
+            }
+
+            #w3review {
+                height: 700px;
+                width: 700px;
+                margin-bottom: 2px;
+            }
+
+            #home {
+                display: flex;
+                justify-content: center;
+                margin-top: 1px;
+                font-size: 20px;
+            }
+        }
+    </style>
+
+    <div class="center" style="display: flex; justify-content: center; margin-top: 20px;">
+        <form action="{% url 'create' %}" method="post">
+            {% csrf_token %}
+            <label id="l1" for="title" style="margin-top: 1%; font-size: 30px; margin-right: 1%;">Title: </label>
+            <input type="text" name="text" id="title" autofocus>
+            <br>
+            <label for="w3review" style="margin-top: 1%; font-size: 30px; margin-right: 1%;">Content: </label>
+            <br>
+            <textarea id="w3review" name="content">Your Content</textarea>
+            <br>
+            <input class="btn btn-success" type="submit" value="Save" style="margin-top: 2%;">
+        </form>
+    </div>
+
+    <a id="home" href="/">Back to Home</a>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'todo/layout.html' %}
+
+{% block title %}
+
+    Notes
+
+{% endblock %}
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div style="margin-bottom: 0%;" class="alert alert-info">
+                <strong>{{message}}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Notes</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'create' %}">Create Note</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search" action="{% url 'form' %}" method="post">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search Notes" name="q">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="right">
+        <h1 id="all_notes" style="display: flex; justify-content: center;">All Notes</h1>
+        <hr>
+        {% for todo in posts_of_the_page %}
+        <div class="card">
+          <div class="card-body">
+            <a style="color: black;" href="notes/{{todo.title}}"><h5 class="card-title" id="title">{{ todo.title }}</h5></a>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" id="content{{ todo.id }}" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 100px" disabled>{{ todo.details }}</textarea>
+            </div>
+            <p class="card-text" id="date">{{ todo.date }}</p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ todo.id }}">Edit</button>
+    
+            <div class="modal fade" id="exampleModal{{ todo.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ todo.id }}" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Post</h1>
+                    <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <textarea name="edit" id="textarea{{ todo.id }}" cols="50" rows="5">{{ todo.details }}</textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="submit({{ todo.id }})">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <form style="display: inline;" action="/del/{{todo.id}}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+        <nav style="margin-top: 9%;" aria-label="Page navigation example">
+            <ul class="pagination">
+              {% if posts_of_the_page.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page= {{ posts_of_the_page.previous_page_number }}">Previous</a></li>
+              {% endif %}
+              {% if posts_of_the_page.has_next %}
+                <li class="page-item"><a class="page-link" href="?page= {{ posts_of_the_page.next_page_number }}">Next</a></li>
+              {% endif %}
+            </ul>
+          </nav>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "todo/layout.html" %}
+
+{% block title %}
+    Search Result
+{% endblock %}
+
+{% block body %}
+    <style>
+        @media (min-width: 1000px) {
+            a {
+                font-size: 30px;
+            }
+        }
+    </style>
+
+    <h1 style="display: flex;justify-content: center;">All Pages related to the search</h1>
+
+    <br>
+
+    {% for data in datum %}
+        <hr>
+        <a class="anchor" style="display: flex;justify-content: center;" href="notes/{{ data }}">{{ data }}</a>
+        <hr>
+    {% endfor %}
+
+    <br>
+
+    <a style="display: flex;justify-content: center;" href="/">Back to Home</a>
+
+{% endblock %}
